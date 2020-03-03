@@ -2,8 +2,11 @@ import flask
 
 app = flask.Flask('pypi')
 
+
 @app.route('/')
 def index():
-    return "Hello, World"
+    return flask.render_template('index.html')
 
-app.run()
+
+if __name__ == '__main__':
+    app.run(debug=True)
