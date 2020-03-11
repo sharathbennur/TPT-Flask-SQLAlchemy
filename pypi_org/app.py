@@ -14,11 +14,11 @@ def get_test_packages():
 @app.route('/')
 def index():
     test_packages = get_test_packages()
-    return flask.render_template('index.html', packages=test_packages)
+    return flask.render_template('Home/index.html', packages=test_packages)
 
 @app.route('/about')
 def about():
-    return flask.render_template('about.html')
+    return flask.render_template('Home/about.html')
 
 
 if __name__ == '__main__':
