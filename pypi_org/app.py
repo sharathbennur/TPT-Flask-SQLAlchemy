@@ -1,5 +1,5 @@
 import flask
-
+from pypi_org.infrastructure.view_modifiers import response
 app = flask.Flask('pypi')
 
 
@@ -12,13 +12,16 @@ def get_test_packages():
 
 
 @app.route('/')
+@response(template_file='Home/index.html')
 def index():
     test_packages = get_test_packages()
-    return flask.render_template('Home/index.html', packages=test_packages)
+    return {'packages' : test_packages}
+
 
 @app.route('/about')
+@response(template_file='Home/about.html')
 def about():
-    return flask.render_template('Home/about.html')
+    return {}
 
 
 if __name__ == '__main__':
