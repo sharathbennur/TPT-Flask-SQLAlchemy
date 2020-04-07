@@ -7,13 +7,17 @@ from pypi_org.data.modelbase import SqlAlchemyBase
 class Release(SqlAlchemyBase):
     __tablename__ = 'releases'
 
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
+    id = sqlalchemy.Column(sqlalchemy.Integer,
+                           primary_key=True,
+                           autoincrement=True)
 
     major_ver = sqlalchemy.Column(sqlalchemy.BigInteger, index=True)
     minor_ver = sqlalchemy.Column(sqlalchemy.BigInteger, index=True)
     build_ver = sqlalchemy.Column(sqlalchemy.BigInteger, index=True)
 
-    created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now, index=True)
+    created_date = sqlalchemy.Column(sqlalchemy.DateTime,
+                                     default=datetime.datetime.now,
+                                     index=True)
     comment = sqlalchemy.Column(sqlalchemy.String)
     url = sqlalchemy.Column(sqlalchemy.String)
     size = sqlalchemy.Column(sqlalchemy.BigInteger)
