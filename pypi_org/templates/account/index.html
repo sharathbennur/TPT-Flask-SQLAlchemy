@@ -1,0 +1,13 @@
+{% extends "shared/_layout.html" %}
+{% block title %}About PyPi{% endblock %}
+{% block main_content %}
+    <h1>Welcome to your account</h1>
+    <div class="account-information">
+        Here is your account information:
+        <div class="">Username: {{ user.name }}</div>
+        <div class="">Email: {{ user.email }}</div>
+    </div>
+{% endblock %}
+
+    <div class="container project-list">
+        <div class="row">
