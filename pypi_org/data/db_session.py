@@ -8,9 +8,9 @@ __factory = None
 
 
 def global_init(db_file: str):
-    global factory
+    global __factory
 
-    if factory:
+    if __factory:
         return
 
     if not db_file or not db_file.strip():
@@ -20,7 +20,7 @@ def global_init(db_file: str):
     print("Connecting to DB with {}".format(conn_str))
 
     engine = sa.create_engine(conn_str, echo=False)
-    factory = orm.sessionmaker(bind=engine)
+    __factory = orm.sessionmaker(bind=engine)
 
     # noinspection PyUnresolvedReferences
     import pypi_org.data.__all_models
