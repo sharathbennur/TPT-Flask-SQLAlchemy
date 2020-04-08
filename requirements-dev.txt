@@ -1,6 +1,7 @@
 # requirements.txt
 -r requirements.txt
 
+alembic
 pytest
 pytest-cov
 webtest
