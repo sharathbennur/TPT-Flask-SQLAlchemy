@@ -38,7 +38,7 @@
 
             {% if user_id %}
                 <li class="nav-item"><a class="nav-link" href="/account">Account</a></li>
-                <li class="nav-item"><a class="nav-link" href="/account/logout">Logout</a></li>
+                <li class="nav-item"><a class="nav-link" href="/account/logout" id="last_nav_link">Logout</a></li>
             {% else %}
                 <li class="nav-item"><a class="nav-link" href="/account/login">Login</a></li>
                 <li class="nav-item"><a class="nav-link" href="/account/register" id="last_nav_link">Register</a></li>
@@ -54,8 +54,10 @@
 
 <footer>
     <div class="copyright">
-        This is a fake site built during a course meant to model / simulate the real <a href="https://pypi.org">pypi.org</a><br>
+        This is a fake site built during a course.<br>
+        It's meant to model / simulate the real <a href="https://pypi.org">pypi.org</a><br>
         <br>
+        Copyright &copy; <a href="https://training.talkpython.fm">Talk Python Training</a>.
     </div>
 </footer>
 

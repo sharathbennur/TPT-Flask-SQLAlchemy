@@ -10,7 +10,7 @@ from dateutil.parser import parse
 sys.path.insert(0, os.path.abspath(os.path.join(
     os.path.dirname(__file__), "..", "..")))
 
-from pypi_org.infrastructure.num_convert import try_int
+from pypi_org.bin.load_data import try_int
 import pypi_org.data.db_session as db_session
 from pypi_org.data.languages import ProgrammingLanguage
 from pypi_org.data.licenses import License
@@ -153,7 +153,7 @@ def do_import_packages(file_data: List[dict], user_lookup: Dict[str, User]):
 
 
 def do_load_files() -> List[dict]:
-    data_path = os.path.join(os.path.dirname(__file__), '../../../data-driven-web-apps-with-flask/data/pypi-top-100')
+    data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../../data/pypi-top-100'))
     print("Loading files from {}".format(data_path))
     files = get_file_names(data_path)
     print("Found {:,} files, loading ...".format(len(files)), flush=True)

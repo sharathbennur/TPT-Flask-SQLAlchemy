@@ -1,7 +1,13 @@
 import os
+import sys
+
 import pypi_org.data.db_session as db_session
 from pypi_org.data.package import Package
 from pypi_org.data.releases import Release
+
+# Make it run more easily outside of PyCharm
+sys.path.insert(0, os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", "..")))
 
 
 def main():
@@ -12,7 +18,7 @@ def main():
 
 def insert_a_package():
     p = Package()
-    p.id = input("Package id/name: ").strip().lower()
+    p.id = input('Package id / name: ').strip().lower()
 
     p.summary = input("Package summary: ").strip()
     p.author_name = input("Author: ").strip()
@@ -34,9 +40,7 @@ def insert_a_package():
     r.size = int(input("Size in bytes: "))
     p.releases.append(r)
 
-    # setup session
     session = db_session.create_session()
-    # add data
     session.add(p)
     session.commit()
 

@@ -1,17 +1,24 @@
 from typing import Optional
+
+from passlib.handlers.sha2_crypt import sha512_crypt as crypto
 import pypi_org.data.db_session as db_session
 from pypi_org.data.users import User
-from passlib.handlers.sha2_crypt import sha512_crypt as crypto
 
 
 def get_user_count() -> int:
     session = db_session.create_session()
-    return session.query(User).count()
+    try:
+        return session.query(User).count()
+    finally:
+        session.close()
 
 
 def find_user_by_email(email: str) -> Optional[User]:
     session = db_session.create_session()
-    return session.query(User).filter(User.email == email).first()
+    try:
+        return session.query(User).filter(User.email == email).first()
+    finally:
+        session.close()
 
 
 def create_user(name: str, email: str, password: str) -> Optional[User]:
@@ -19,19 +26,22 @@ def create_user(name: str, email: str, password: str) -> Optional[User]:
         return None
 
     user = User()
-    user.name = name
     user.email = email
+    user.name = name
     user.hashed_password = hash_text(password)
 
     session = db_session.create_session()
-    session.add(user)
-    session.commit()
+    try:
+        session.add(user)
+        session.commit()
+    finally:
+        session.close()
 
     return user
 
 
 def hash_text(text: str) -> str:
-    hashed_text =  crypto.encrypt(text, rounds=172636)
+    hashed_text = crypto.encrypt(text, rounds=171204)
     return hashed_text
 
 
@@ -41,19 +51,23 @@ def verify_hash(hashed_text: str, plain_text: str) -> bool:
 
 def login_user(email: str, password: str) -> Optional[User]:
     session = db_session.create_session()
+    try:
+        user = session.query(User).filter(User.email == email).first()
+        if not user:
+            return None
 
-    user = session.query(User).filter(User.email == email).first()
-    if not user:
-        return None
+        if not verify_hash(user.hashed_password, password):
+            return None
 
-    if not verify_hash(user.hashed_password, password):
-        return None
-
-    return user
+        return user
+    finally:
+        session.close()
 
 
 def find_user_by_id(user_id: int) -> Optional[User]:
     session = db_session.create_session()
-
-    user = session.query(User).filter(User.id == user_id).first()
-    return user
+    try:
+        user = session.query(User).filter(User.id == user_id).first()
+        return user
+    finally:
+        session.close()
